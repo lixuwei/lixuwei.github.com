@@ -8,12 +8,29 @@
   <meta name="360-site-verification" content="67fbcc5a67f4c65c057315b28fa0b2c8" />
 <meta name="google-site-verification" content="2GzxQ0VtXwTSUdmGm6DzcmhTzM_I9QmzCb_pzpMzD88" />
   
-    <title>Hello World | lixuwei blog</title>
+    <title>mqtt-1 | lixuwei blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="lixuwei">
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+    <meta name="description" content="MQTT 控制包格式
+控制包的结构
+
+固定头部
+可变头部
+负荷
+图示
+| 数据包结构如下|———————|| 1 固定头部| 2 可变头部| 3 负荷
+
+
+
+
+
+固定头部   byte1 
+7~4 messageType
+3~0 flags
+   byte2
+7~0 （Remaining lengt">
     
     
     
@@ -75,15 +92,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/21/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2015/05/21/mqtt-1/" title="mqtt-1" itemprop="url">mqtt-1</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://yoursite.com" title="lixuwei">lixuwei</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-05-21T04:03:14.000Z" itemprop="datePublished">2015-05-21</time>
-    更新日期:<time datetime="2015-05-21T04:03:14.000Z" itemprop="dateModified">2015-05-21</time>
+    <time datetime="2015-05-21T05:27:53.000Z" itemprop="datePublished">2015-05-21</time>
+    更新日期:<time datetime="2015-05-21T06:42:49.000Z" itemprop="dateModified">2015-05-21</time>
     
   </p>
 </header>
@@ -92,28 +109,291 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#MQTT_控制包格式"><span class="toc-number">1.</span> <span class="toc-text">MQTT 控制包格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#固定头部"><span class="toc-number">2.</span> <span class="toc-text">固定头部</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可变头部"><span class="toc-number">3.</span> <span class="toc-text">可变头部</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#playload/消息体/负荷"><span class="toc-number">4.</span> <span class="toc-text">playload/消息体/负荷</span></a></li></ol>
 		</div>
 		
-		<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<h4 id="MQTT_控制包格式">MQTT 控制包格式</h4><ol>
+<li><p>控制包的结构</p>
+<ul>
+<li>固定头部</li>
+<li>可变头部</li>
+<li><p>负荷</p>
+<p>图示</p>
+<p>| 数据包结构如下<br>|———————|<br>| 1 固定头部<br>| 2 可变头部<br>| 3 负荷</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="固定头部">固定头部</h4><p>   <code>byte1</code> </p>
+<pre><code><span class="number">7</span>~<span class="number">4</span> messageType
+<span class="number">3</span>~<span class="number">0</span> <span class="keyword">flags</span>
+</code></pre><p>   <code>byte2</code></p>
+<pre><code><span class="number">7</span>~<span class="number">0</span> （Remaining <span class="property">length</span>） 剩余部分的字节长度    
+</code></pre><p>  messageType 目前有14个有效类型</p>
+<ol>
+<li>CONNECT </li>
+<li>CONNACK</li>
+<li>PUBLISH </li>
+<li>PUBACK </li>
+<li>PUBREC </li>
+<li>PUBREL </li>
+<li>PUBCOMP </li>
+<li>SUBSCRIBE </li>
+<li>SUBACK </li>
+<li>UNSUBSCRIBE </li>
+<li>UNSBUACK </li>
+<li>PINGREQ</li>
+<li>PINGESP </li>
+<li>DISCONNECT</li>
+</ol>
+<p>Flags 后4位的 标示</p>
+<ol>
+<li>DUP 保证消息的可靠传输</li>
+<li>QOS 服务质量</li>
+<li>RETAIN 保持</li>
+</ol>
+<ul>
+<li><p>dup 默认为0 标示第一次发送，如何为1 标示这条消息已经发送过了</p>
+</li>
+<li><p>qos-0 最多发送一次</p>
+</li>
+<li>qos-1 最少发送一次</li>
+<li>qos-2 只发送一次</li>
+<li>RETAIN 服务器是否保存该消息</li>
+</ul>
+<p>Remaining Lenght 剩余部分字节的长度</p>
+<p>在当前消息中剩余的byte(字节)数，包含可变头部和负荷(称之为内容/body，更为合适)。单个字节最大值：01111111，16进制：0x7F，10进制为127。单个字节为什么不能是11111111（0xFF）呢？<code>因为MQTT协议规定，第八位（最高位）若为1</code>，则表示还有后续字节存在。同时MQTT协议最多允许4个字节表示剩余长度。那么最大长度为 16进制：<code>0xFF,0xFF,0xFF,0x7F</code>，二进制表示为:<code>11111111,11111111,11111111,01111111</code>，十进制：<code>268435455</code>byte=261120KB=256MB=0.25GB 四个字节之间值的范围：</p>
+<table>
+<thead>
+<tr>
+<th>Digits</th>
+<th>From</th>
+<th>To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0 (0x00)</td>
+<td>127 (0x7F)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>128 (0x80, 0x01)</td>
+<td>16 383 (0xFF, 0x7F)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>16 384 (0x80, 0x80, 0x01)</td>
+<td>2 097 151 (0xFF, 0xFF, 0x7F)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2 097 152 (0x80, 0x80, 0x80, 0x01)</td>
+<td>268 435 455 (0xFF, 0xFF, 0xFF, 0x7F)</td>
+</tr>
+</tbody>
+</table>
+<p>代码如下</p>
+<!--lang:java-->
+<pre><code><span class="comment"><span class="markdown">/**
+<span class="bullet">* </span>转化字节为 int类型长度
+<span class="bullet">* </span>@param in
+<span class="bullet">* </span>@return
+<span class="bullet">* </span>@throws IOException
+*/</span></span>
+private <span class="literal">static</span> <span class="built_in">int</span> bytes2Length(InputStream <span class="keyword">in</span>) throws IOException {
+    <span class="built_in">int</span> multiplier = <span class="number">1</span>;
+    <span class="built_in">int</span> length = <span class="number">0</span>;
+    <span class="built_in">int</span> digit = <span class="number">0</span>;
+    <span class="keyword">do</span> {
+        digit = <span class="keyword">in</span>.read(); <span class="comment">//一个字节的有符号或者无符号，转换转换为四个字节有符号 int类型</span>
+        length += (digit &amp; <span class="number">0x7f</span>) * multiplier;
+        multiplier *= <span class="number">128</span>;
+   } <span class="keyword">while</span> ((digit &amp; <span class="number">0x80</span>) != <span class="number">0</span>);
+
+    <span class="keyword">return</span> length;
+}
+</code></pre><!--lang:java-->
+<pre><code><span class="comment">/**
+  * int类型长度解析为1-4个字节
+  * @param out
+  * @param length
+  * @throws IOException
+  */</span>
+  <span class="keyword">private</span> static void length2Bytes(<span class="type">OutputStream</span> out, int length)
+           <span class="keyword">throws</span> <span class="type">IOException</span> {
+      int <span class="function"><span class="keyword">val</span> =</span> length;
+      do {
+           int digit = <span class="function"><span class="keyword">val</span> <span class="title">%</span> 128;</span>
+          <span class="function"><span class="keyword">val</span> =</span> <span class="function"><span class="keyword">val</span> <span class="title">/</span> 128;</span>
+           <span class="keyword">if</span> (<span class="function"><span class="keyword">val</span> <span class="title">&gt;</span> 0)
+</span>               digit = digit | <span class="number">0x80</span>;
+
+          out.write(digit);
+     } <span class="keyword">while</span> (<span class="function"><span class="keyword">val</span> <span class="title">&gt;</span> 0);</span>
+  }
+</code></pre><h4 id="可变头部">可变头部</h4><p>固定头部仅定义了消息类型和一些标志位。一些消息的元数据，需要放入可变头部中。可变头部内容字  节长度 + Playload/负荷字节长度 = 剩余长度（remaining length），这个是需要牢记的。可变头部，包含了协议名称，版本号，连接标志，用户授权，心跳时间等内容，这部分和后面要讲到的CONNECT消息类型，有重复，暂时略过。</p>
+<p><code>消息标识/包标识/ Packet Identifier/message Identifier</code></p>
+<p> 占用16位共2byte 下面是那些控制包中包含消息标识</p>
+<table>
+<thead>
+<tr>
+<th>Control Packet</th>
+<th>Packet Identifier field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CONNECT</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>CONNACK</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>PUBLISH</td>
+<td>YES (If QoS &gt; 0)</td>
+</tr>
+<tr>
+<td>PUBACK</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>PUBREC</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>PUBREL</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>PUBCOMP</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>SUBSCRIBE</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>SUBACK</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>UNSUBSCRIBE</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>UNSUBACK</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>PINGREQ</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>PINGRESP</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>DISCONNECT</td>
+<td>NO</td>
+</tr>
+</tbody>
+</table>
+<p>值得注意的是这是个16位的无符号short值 不能为0 (0 被视为无效消息ID)，</p>
+<h4 id="playload/消息体/负荷">playload/消息体/负荷</h4><p>消息体主要是为配合固定/可变头部命令（比如CONNECT可变头部User name标记若为1则需要在消息体中附加用户名称字符串）而存在。</p>
+<p>CONNECT/SUBSCRIBE/SUBACK/PUBLISH等消息有消息体。PUBLISH的消息体以二进制形式对待。</p>
+<table>
+<thead>
+<tr>
+<th>Control Packet</th>
+<th>Payload</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CONNECT</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>CONNACK</td>
+<td>None</td>
+</tr>
+<tr>
+<td>PUBLISH</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>PUBACK</td>
+<td>None</td>
+</tr>
+<tr>
+<td>PUBREC</td>
+<td>None</td>
+</tr>
+<tr>
+<td>PUBREL</td>
+<td>None</td>
+</tr>
+<tr>
+<td>PUBCOMP</td>
+<td>None</td>
+</tr>
+<tr>
+<td>SUBSCRIBE</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>SUBACK</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>UNSUBSCRIBE</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>UNSUBACK</td>
+<td>None</td>
+</tr>
+<tr>
+<td>PINGREQ</td>
+<td>None</td>
+</tr>
+<tr>
+<td>PINGRESP</td>
+<td>None</td>
+</tr>
+<tr>
+<td>DISCONNECT</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>请记住，MQTT协议只允许在PUBLISH类型消息体中使用自定义特性，在固定/可变头部想加入自定义私有特性，就免了吧。这也是为了协议免于流于形式，变得很分裂也为了兼顾现有客户端等。比如支持压缩等，那就可以在Playload中定义数据支持，在应用中进行读取处理。</p>
+<p>这部分会在后面详细论述。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/mqtt/">mqtt</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/mq/">mq</a>
+</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2015/05/21/hello-world/" data-title="Hello World | lixuwei blog" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2015/05/21/mqtt-1/" data-title="mqtt-1 | lixuwei blog" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -122,19 +402,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/05/21/mqtt-1/" title="mqtt-1">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  mqtt-1</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/05/21/myblog/"  title="myblog">
+<a href="/2015/05/21/hello-world/"  title="Hello World">
  <strong>NEXT:</strong><br/> 
- <span>myblog
+ <span>Hello World
 </span>
 </a>
 </div>
@@ -144,7 +416,7 @@
 	
 <section class="comment">
 	
-	<div class="ds-thread" data-title="Hello World" data-thread-key="hello-world" data-author-key="lixuwei" data-url="http://yoursite.com/post/hello-world"></div>
+	<div class="ds-thread" data-title="mqtt-1" data-thread-key="mqtt-1" data-author-key="lixuwei" data-url="http://yoursite.com/post/mqtt-1"></div>
 	
 </section>
 
@@ -154,7 +426,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#MQTT_控制包格式"><span class="toc-number">1.</span> <span class="toc-text">MQTT 控制包格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#固定头部"><span class="toc-number">2.</span> <span class="toc-text">固定头部</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可变头部"><span class="toc-number">3.</span> <span class="toc-text">可变头部</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#playload/消息体/负荷"><span class="toc-number">4.</span> <span class="toc-text">playload/消息体/负荷</span></a></li></ol>
   </div>
 
 <div id="asidepart">
